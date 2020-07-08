@@ -21,6 +21,8 @@ By default, training examples here all periodically generate a collage of a few 
 
         python3 train_cfggan.py --dataset lsun_bedroom64 --dataroot lsun-root
                
+  (Or try out a smaller LSUN class `church_outdoor` in place of `bedroom` above.)               
+               
 * To save models after 100 stages, 200 stages, ... with filenames starting with `mod/MNIST-dcganx`
 
         mkdir mod
