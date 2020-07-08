@@ -11,13 +11,9 @@ This is the author implementation of CFG-GAN (composite functional gradient lear
 
 By default, training examples here all periodically generate a collage of a few images.  
 
-* To train on SVHN with its default discriminator/approximator DCGAN extension
+* To train on MNIST with its default discriminator/approximator DCGAN extension
 
-        python3 train_cfggan.py --dataset SVHN
-     
-* To change the approximator to a 2-layer fully-connected network, 
-
-        python3 train_cfggan.py --dataset SVHN --model fc2
+        python3 train_cfggan.py --dataset MNIST
         
 * To train on 64x64 LSUN bedroom with its default discriminator/approximator 4-block ResNet
 
@@ -25,10 +21,10 @@ By default, training examples here all periodically generate a collage of a few 
 
         python3 train_cfggan.py --dataset lsun_bedroom64 --dataroot lsun-root
                
-* To save models after 100 stages, 200 stages, ... with filenames starting with `mod/SVHN-dcganx`
+* To save models after 100 stages, 200 stages, ... with filenames starting with `mod/MNIST-dcganx`
 
         mkdir mod
-        python train_cfggan.py --dataset SVHN --save_interval 100 --save mod/SVHN-dcganx
+        python train_cfggan.py --dataset MNIST --save_interval 100 --save mod/MNIST-dcganx
                        
 * To get help
 
@@ -36,11 +32,11 @@ By default, training examples here all periodically generate a collage of a few 
 
 **_Examples of image generation_**
 
-* To generate images from a saved model `mod/SVHN-dcganx-stage1000.pth`
+* To generate images from a saved model `mod/MNIST-dcganx-stage01000.pth`
 
-        python3 cfggan_gen.py --saved mod/SVHN-dcganx-stage100.pth --gen gen/SVHN-dcganx
+        python3 cfggan_gen.py --saved mod/MNIST-dcganx-stage01000.pth --gen gen/MNIST-dcganx
         
-  This generates a collage of 40 images (default) and write it with a filename starting with `gen/SVHN-dcganx`.        
+  This generates a collage of 40 images (default) and write it with a filename starting with `gen/MNIST-dcganx`.        
 
 * To get help
 
@@ -58,4 +54,3 @@ By default, training examples here all periodically generate a collage of a few 
 
 [[Johnson & Zhang, TPAMI]](http://riejohnson.com/paper/cfggan-tpami.pdf) A framework of composite functional gradient methods for generative adversarial models. Rie Johnson and Tong Zhang.  Accepted for publication in IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI) in 2019.     
 [[Johnson & Zhang, ICML 2018]](https://arxiv.org/abs/1801.06309) Composite functional gradient learning of generative adversarial models.  Rie Johnson and Tong Zhang.  ICML 2018.  
-
