@@ -12,13 +12,15 @@ MNIST = 'MNIST'
 SVHN = 'SVHN'
 Bedroom64 = 'lsun_bedroom64'
 Church64 = 'lsun_church_outdoor64'
+Brlr64 = 'lsun_brlr64'
+Twbg64 = 'lsun_twbg64'
 
 #----------------------------------------------------------
 def add_args_(parser):
    #---  proc
    parser.add_argument('--seed', type=int, default=1, help='Random seed.')   
 
-   parser.add_argument('--dataset', type=str, choices=[MNIST, SVHN, Bedroom64, Church64], required=True, help='Dataset.')
+   parser.add_argument('--dataset', type=str, choices=[MNIST, SVHN, Bedroom64, Church64, Brlr64, Twbg64], required=True, help='Dataset.')
    parser.add_argument('--dataroot', type=str, default='.')
    parser.add_argument('--model', type=str, choices=[DCGANx,Resnet4,FC2], help='Model.')   
    parser.add_argument('--norm_type', type=str, default='bn', choices=['bn','none'], help="'bn': batch normalization, 'none': no normalization")   
@@ -58,7 +60,9 @@ def check_args_(opt):
       
    #***  Setting meta-parameters to those used in the CFG-GAN paper. 
    #---  network architecture, learning rate, and T
-   set_if_none(opt, 'model', { MNIST: DCGANx, SVHN: DCGANx, Bedroom64: Resnet4, Church64: Resnet4 }[opt.dataset])    
+   if opt.model is None:
+      opt.model = Resnet4 if opt.dataset.endswith('64') else DCGANx
+      
    if opt.model == DCGANx:
       opt.d_model = opt.g_model = DCGANx
       opt.d_depth = opt.g_depth = 3 if is_32x32() else 4
