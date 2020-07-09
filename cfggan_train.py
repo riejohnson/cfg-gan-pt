@@ -1,4 +1,5 @@
 import torch
+from torch.backends import cudnn
 from torch.utils.data import DataLoader
 from torch.nn.init import normal_
 import numpy as np
@@ -11,6 +12,8 @@ from utils.utils0 import raise_if_absent, add_if_absent_, logging, timeLog, rais
 DCGANx = 'dcganx'
 Resnet4 = 'resnet4'
 FCn = 'fcn'
+
+cudnn.benchmark = True
 
 #----------------------------------------------------------
 def proc(opt): 

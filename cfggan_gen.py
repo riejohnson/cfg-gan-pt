@@ -1,5 +1,6 @@
 import argparse
 import torch
+from torch.backends import cudnn
 from torch.nn.init import normal_
 import numpy as np
 
@@ -7,6 +8,8 @@ from cfggan_train import DCGANx, Resnet4, FCn
 import netdef
 from cfggan import DDG, generate
 from utils.utils0 import raise_if_absent, add_if_absent_, raise_if_nonpositive_any, show_args, ArgParser_HelpWithDefaults, timeLog
+
+cudnn.benchmark = True
 
 #----------------------------------------------------------
 def main():
