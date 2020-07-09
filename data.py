@@ -73,7 +73,7 @@ def get_ds(dataset, dataroot, is_train, do_download, do_augment):
       if nm.startswith('brlr'):
          indexes = list(range(1300000)) if is_train else list(range(1300000,1315802))
          return gen_lsun_balanced(dataroot, ['bedroom_train', 'living_room_train'], tr, indexes)
-      elif nm == 'twbg_train':
+      elif nm.startswith('twbg'):
          indexes = list(range(700000)) if is_train else list(range(700000,708264))
          return gen_lsun_balanced(dataroot, ['tower_train', 'bridge_train'], tr, indexes)
       else:
