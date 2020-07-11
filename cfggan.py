@@ -46,7 +46,10 @@ def cfggan(opt, d_config, g_config, z_gen, loader,
    iterator = None
    for stage in range(opt.num_stages):   
       timeLog('xICFG stage %d -----------------' % (stage+1))
-      iterator = ddg.icfg(loader, iterator, d_loss, opt.cfg_U)
+      iterator,diff = ddg.icfg(loader, iterator, d_loss, opt.cfg_U)
+      if opt.diff_max > 0 and abs(diff) > opt.diff_max and stage >= 2000:
+         timeLog('Stopping as |D(real)-D(gen)| exceeded ' + str(opt.diff_max) + '.')
+         break
 
       if is_time_to_save(opt, stage):
          save_ddg(opt, ddg, stage)
@@ -88,7 +91,7 @@ def get_next(loader, iterator):
 class DDG:
    def __init__(self, opt, d_config, g_config, z_gen, optim_config, from_file=None):
       assert opt.cfg_T > 0
-      self.verbose = opt.verbose; self.do_exp = opt.do_exp
+      self.verbose = opt.verbose
       self.d_params_list = [ d_config(requires_grad=False)[1] for i in range(opt.cfg_T) ]
       self.d_net,self.d_params = d_config(requires_grad=True)
       self.g_net,self.g_params = g_config(requires_grad=True)
@@ -228,7 +231,7 @@ class DDG:
       raise_if_nan(sum_real)
       raise_if_nan(sum_fake)
 
-      return iter
+      return iter,(sum_real-sum_fake)/count
 
    #-----------------------------------------------------------------
    def initialize_G(self, g_loss, cfg_N): 
@@ -428,7 +431,7 @@ def change_lr_(optimizer, lr, verbose=False):
 def check_opt_(opt):
    raise_if_absent(opt,['cfg_T','cfg_U','cfg_N','num_stages','batch_size','channels','lr','cfg_eta','cfg_x_epo','optim_type'], 'cfggan')
    add_if_absent_(opt, ['save','gen'], '')
-   add_if_absent_(opt, ['save_interval','gen_interval','num_gen','approx_redmax','approx_decay','gen_nrow'], -1)
+   add_if_absent_(opt, ['save_interval','gen_interval','num_gen','approx_redmax','approx_decay','gen_nrow','diff_max'], -1)
    add_if_absent_(opt, ['optim_eps','optim_a1','optim_a2'], -1)
    add_if_absent_(opt, ['weight_decay'], 0.0)
    add_if_absent_(opt, ['verbose','do_exp'], False)

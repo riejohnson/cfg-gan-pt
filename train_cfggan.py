@@ -20,7 +20,7 @@ def add_args_(parser):
    #---  proc
    parser.add_argument('--seed', type=int, default=1, help='Random seed.')   
 
-   parser.add_argument('--dataset', type=str, choices=[MNIST, SVHN, Bedroom64, Church64, Brlr64, Twbg64], required=True, help='Dataset.')
+   parser.add_argument('--dataset', type=str, choices=[MNIST, SVHN, Bedroom64, Church64], required=True, help='Dataset.')
    parser.add_argument('--dataroot', type=str, default='.')
    parser.add_argument('--model', type=str, choices=[DCGANx,Resnet4,FC2], help='Model.')   
    parser.add_argument('--norm_type', type=str, default='bn', choices=['bn','none'], help="'bn': batch normalization, 'none': no normalization")   
@@ -39,9 +39,10 @@ def add_args_(parser):
    parser.add_argument('--gen', type=str, help='Pathname for saving generated images.')   
    parser.add_argument('--save', type=str, default='', help='Pathname for saving models.') 
    parser.add_argument('--save_interval', type=int, default=-1, help='Interval for saving models. -1: no saving.')    
-   parser.add_argument('--gen_interval', type=int, default=10, help='Interval for generating images. -1: no generation.')  
-   parser.add_argument('--num_gen', type=int, default=5, help='Number of images to be generated.')     
+   parser.add_argument('--gen_interval', type=int, default=50, help='Interval for generating images. -1: no generation.')  
+   parser.add_argument('--num_gen', type=int, default=10, help='Number of images to be generated.')     
    parser.add_argument('--gen_nrow', type=int, default=5, help='Number of images in each row when making a collage of generated of images.')
+   parser.add_argument('--diff_max', type=float, default=40, help='Stop training if |D(real)-D(gen)| exceeds this after passing the initial starting-up phase.')
 
    parser.add_argument('--verbose', action='store_true', help='If true, display more info.')   
 
@@ -121,7 +122,7 @@ def check_args_(opt):
    raise_if_nonpositive_any(opt, ['d_dim','g_dim','z_dim','z_std'])
    show_args(opt, ['d_model','d_dim','d_depth','g_model','g_dim','g_depth','norm_type','z_dim','z_std'], 'Net definitions ----')
    raise_if_nonpositive_any(opt, ['cfg_T','cfg_U','cfg_N','batch_size','num_stages','cfg_eta','lr','cfg_x_epo'])
-   show_args(opt, ['cfg_T','cfg_U','cfg_N','num_stages','cfg_eta','cfg_x_epo'], 'CFG and optimization --- ')
+   show_args(opt, ['cfg_T','cfg_U','cfg_N','num_stages','cfg_eta','cfg_x_epo','diff_max'], 'CFG --- ')
    show_args(opt, ['optim_type','optim_eps','optim_a1','optim_a2','lr','batch_size'], 'Optimization ---')
    show_args(opt, ['seed','gen','save','save_interval','gen_interval','num_gen','gen_nrow','verbose'], 'Others ---')
 
