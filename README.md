@@ -55,5 +55,5 @@ By default, training examples here all periodically generate a collage of a few 
 
 **_References_**
 
-[[Johnson & Zhang, TPAMI]](http://riejohnson.com/paper/cfggan-tpami.pdf) A framework of composite functional gradient methods for generative adversarial models. Rie Johnson and Tong Zhang.  Accepted for publication in IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI) in 2019.     
+[[Johnson & Zhang, TPAMI]](http://riejohnson.com/paper/cfggan-tpami.pdf) A framework of composite functional gradient methods for generative adversarial models. Rie Johnson and Tong Zhang.  IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 43(1):17-32, 2021 (accepted in 2019).   
 [[Johnson & Zhang, ICML 2018]](https://arxiv.org/abs/1801.06309) Composite functional gradient learning of generative adversarial models.  Rie Johnson and Tong Zhang.  ICML 2018.  
