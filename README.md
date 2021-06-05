@@ -32,6 +32,8 @@ By default, training examples here all periodically generate a collage of a few 
 
         python3 train_cfggan.py -h
 
+* **_Note_** `--num_stages` specifies how long training should go on.  The default value is set very large, perhaps much larger than necessary, and so please stop training once the quality of generated images hits a plateau by keyboard interruption, or set `--num_stages` smaller.  If training goes on very long, the model could eventually get to the  state of overfitting or overtraining.  
+
 **_Examples of image generation_**
 
 * To generate images from a saved model `mod/MNIST-dcganx-stage01000.pth`
@@ -49,8 +51,7 @@ By default, training examples here all periodically generate a collage of a few 
 * The code uses a GPU whenever it is available.  To avoid use of GPUs even when it is available, 
   empty `CUDA_VISIBLE_DEVICES` via shell before calling python.  
   
-        export CUDA_VISIBLE_DEVICES=""
-* `--num_stages` specifies how long training should go on.  The default value is set large, perhaps much larger than necessary, and so please stop training once the quality of generated images hits a plateau by keyboard interruption, or set `--num_stages` smaller.         
+        export CUDA_VISIBLE_DEVICES=""      
 
 **_References_**
 
